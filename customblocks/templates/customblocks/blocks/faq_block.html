@@ -1,0 +1,19 @@
+{% load customblocks_tags %}
+<section class="block block-faq">
+    {% if value.title %}
+        <h3 class="block-title">{{ value.title }}</h3>
+    {% endif %}
+    <div class="faq-list">
+        {% for item in value.items %}
+            <details class="faq-item">
+                <summary class="faq-question">{{ item.question }}</summary>
+                <div class="faq-answer">
+                    {{ item.answer|richtext }}
+                </div>
+            </details>
+        {% empty %}
+            <p>No FAQ items added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+

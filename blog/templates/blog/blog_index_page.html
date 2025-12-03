@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in page.get_children %}
+        <article class="blog-post-preview">
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            <p class="meta">{{ post.specific.date }}</p>
+            <p class="intro">{{ post.specific.intro }}</p>
+            <div class="body-preview">
+                {% for block in post.specific.body %}
+                    {% if forloop.counter == 1 %}
+                        {% if block.block_type == 'paragraph' %}
+                            <div class="block-paragraph">
+                                {{ block.value|richtext|truncatewords:30 }}
+                            </div>
+                        {% elif block.block_type == 'image' %}
+                            <div class="block-image">
+                                {% image block.value width-400 class="blog-image-preview" %}
+                            </div>
+                        {% elif block.block_type == 'heading' %}
+                            <h3 class="block-heading">{{ block.value }}</h3>
+                        {% endif %}
+                    {% endif %}
+                {% empty %}
+                    <p>No content available.</p>
+                {% endfor %}
+            </div>
+            <p><a href="{% pageurl post %}">Read more →</a></p>
+        </article>
+    {% endfor %}
+
+{% endblock %}

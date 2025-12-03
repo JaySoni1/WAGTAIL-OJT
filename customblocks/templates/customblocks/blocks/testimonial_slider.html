@@ -1,0 +1,27 @@
+{% load wagtailimages_tags customblocks_tags %}
+<section class="block block-testimonials">
+    {% if value.title %}
+        <h3 class="block-title">{{ value.title }}</h3>
+    {% endif %}
+    <div class="testimonials-slider">
+        {% for t in value.testimonials %}
+            <figure class="testimonial">
+                <blockquote class="testimonial-quote">"{{ t.quote }}"</blockquote>
+                <figcaption class="testimonial-meta">
+                    {% if t.avatar %}
+                        {% image t.avatar fill-80x80 class="testimonial-avatar" %}
+                    {% endif %}
+                    <div>
+                        <div class="testimonial-name">{{ t.name }}</div>
+                        {% if t.role %}
+                            <div class="testimonial-role">{{ t.role }}</div>
+                        {% endif %}
+                    </div>
+                </figcaption>
+            </figure>
+        {% empty %}
+            <p>No testimonials configured.</p>
+        {% endfor %}
+    </div>
+</section>
+

@@ -1,0 +1,23 @@
+{% load customblocks_tags %}
+<section class="block block-cta">
+    <div class="block-cta-inner">
+        {% if value.eyebrow %}
+            <div class="cta-eyebrow">{{ value.eyebrow }}</div>
+        {% endif %}
+        <h3 class="cta-headline">{{ value.headline }}</h3>
+        {% if value.body %}
+            <div class="cta-body">
+                {{ value.body|richtext }}
+            </div>
+        {% endif %}
+        <div class="cta-actions">
+            <a href="{{ value.button_url }}" class="btn btn-primary">{{ value.button_text }}</a>
+            {% if value.secondary_link_text and value.secondary_link_url %}
+                <a href="{{ value.secondary_link_url }}" class="btn btn-secondary">
+                    {{ value.secondary_link_text }}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
